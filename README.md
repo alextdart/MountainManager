@@ -13,3 +13,14 @@ and even the lines you can expect at each lift (how busy it is). This would be u
 the mountain and where to ski, and by the mountain staff to keep it updated. I ski a lot personally, so I have a
 huge appreciation for apps like these. They are incredibly helpful for resort staff to know when to service runs or lifts,
 and for skiers to know where to go and plan their day.
+
+The main "user" is the resort staff, keeping it updated. Consumers would only be
+able to see a portion of it, to view which runs and lifts are open, and related data.
+
+User (from a resort staff perspective) stories:
+
+As a user, I want to be able to update the status of a lift (open, closed, delayed)
+As a user, I want to be able to update the status of a run (groomed, powder, closed, etc.)
+As a user, I want to be able to enter the number of people in a lift line and have a wait time estimate for that lift
+As a user, I want to be able to see when each run was last bombed for avalanches, and when next
+As a user, I want to be able to see the total number of open or closed runs, and what they are
