@@ -158,7 +158,7 @@ public class ResortApp {
 
     private void modifyLifts() {
         String liftID = "";  // force entry into loop
-        while ((liftID.equals("")) || (Integer.parseInt(liftID) > resort.getNumOfLifts())) {
+        while (!(isNumeric(liftID)) || !(liftIDValid(liftID))) {
             System.out.println("enter the liftID number you wish to modify: ");
             liftID = input.next();
         }
@@ -177,11 +177,28 @@ public class ResortApp {
             resort.closeLift(Integer.parseInt(liftID));
             System.out.println("Lift " + liftID + " closed.");
         } else {
-            System.out.println("how many people are in line?: ");
-            int peopleInLine = input.nextInt();
-            resort.updateLiftLine(Integer.parseInt(liftID), peopleInLine);
-            System.out.println("updated lift " + liftID + " to have " + peopleInLine + " people in line.");
+            updatePeopleInLiftLine(liftID);
         }
+    }
+
+    private void updatePeopleInLiftLine(String liftID) {
+        System.out.println("how many people are in line?: ");
+        int peopleInLine = input.nextInt();
+        resort.updateLiftLine(Integer.parseInt(liftID), peopleInLine);
+        System.out.println("updated lift " + liftID + " to have " + peopleInLine + " people in line.");
+    }
+
+    private boolean isNumeric(String value) {
+        try {
+            double d = Double.parseDouble(value);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean liftIDValid(String liftID) {
+        return (0 < Integer.parseInt(liftID)) && (Integer.parseInt(liftID) <= resort.getNumOfLifts());
     }
 }
 
