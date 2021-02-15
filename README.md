@@ -19,8 +19,8 @@ able to see a portion of it, to view which runs and lifts are open, and related 
 
 User (from a resort staff perspective) stories:
 
-As a user, I want to be able to add new lifts or runs to my mountain
-As a user, I want to be able to update the status of a lift (open, closed)
-As a user, I want to be able to update the status of a run (groomed, powder, closed, etc.)
-As a user, I want to be able to enter the number of people in a lift line and have a wait time estimate for that lift
-As a user, I want to be able to view the total number of open or closed runs, and what they are, and their status
+ - As a user, I want to be able to add new lifts or runs to my mountain
+ - As a user, I want to be able to update the status of a lift (open, closed)
+ - As a user, I want to be able to update the status of a run (groomed, powder, closed, etc.)
+ - As a user, I want to be able to enter the number of people in a lift line and have a wait time estimate for that lift
+ - As a user, I want to be able to view the total number of open or closed runs, and what they are, and their status
