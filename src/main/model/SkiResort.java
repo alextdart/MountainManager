@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// this class represents a full ski resort with multiple runs and lifts
 public class SkiResort {
 
     private ArrayList<SkiRun> runs = new ArrayList<SkiRun>();

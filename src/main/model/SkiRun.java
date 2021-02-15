@@ -1,5 +1,6 @@
 package model;
 
+// this class represents a ski run, it's condition, it's status (open or closed) and operations to change those
 public class SkiRun {
 
     private boolean open = false;   // false = closed, true = open

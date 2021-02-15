@@ -1,5 +1,6 @@
 package model;
 
+// this class represents a chair lift, and represents it's name, number of seats per chair, and other related info
 public class Lift {
 
     private boolean open = false;   // false = closed, true = open
