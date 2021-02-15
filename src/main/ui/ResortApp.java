@@ -4,6 +4,7 @@ import model.SkiResort;
 
 import java.util.Scanner;
 
+// runs the entire Resort Application with ui
 public class ResortApp {
 
     private SkiResort resort;
@@ -59,7 +60,7 @@ public class ResortApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes accounts
+    // EFFECTS: initializes a new ski resort named Dart Mountain
     private void init() {
         resort = new SkiResort("Dart Mountain");
         System.out.println("Welcome to the " + resort.getName() + " management system!");
@@ -76,14 +77,18 @@ public class ResortApp {
         System.out.println("\tquit -> quit the program");
     }
 
+    // EFFECTS: displays all lifts and their related info to the user, or a message if there aren't any
     private void checkLifts() {
         resort.viewAllLifts();
     }
 
+    // EFFECTS: displays all runs and their related info to the user, or a message if there aren't any
     private void checkRuns() {
         resort.viewAllRuns();
     }
 
+    // MODIFIES: SkiResort
+    // EFFECTS: adds a new run or lift to the resort depending on user input
     private void addNew() {
         String selection = "";  // force entry into loop
 
@@ -109,6 +114,8 @@ public class ResortApp {
         }
     }
 
+    // used to determine user's choice of what to modify
+    // EFFECTS: returns the type of modification the user wishes to make
     private String modifyWho() {
         String selection = "";  // force entry into loop
 
@@ -130,6 +137,9 @@ public class ResortApp {
 
     }
 
+    // REQUIRES: user has selected "run" in modifyWho()
+    // MODIFIES: a selected ski run from within SkiResort
+    // EFFECTS: changes status of a selected ski run
     private void modifyRuns() {
         String runID = "";  // force entry into loop
         while ((runID.equals("")) || (Integer.parseInt(runID) > resort.getNumOfRuns())) {
@@ -156,6 +166,9 @@ public class ResortApp {
 
     }
 
+    // REQUIRES: user has selected "lift" in modifyWho()
+    // MODIFIES: a selected lift from within SkiResort
+    // EFFECTS: changes status or lift line time of a selected lift
     private void modifyLifts() {
         String liftID = "";  // force entry into loop
         while (!(isNumeric(liftID)) || !(liftIDValid(liftID))) {
@@ -181,6 +194,10 @@ public class ResortApp {
         }
     }
 
+    // updates how many people are in a lift's line
+    // REQUIRES: at least one lift exists, valid liftID passed
+    // MODIFIES: a lift from within SkiResort
+    // EFFECTS: updates how many people are in that lift's line
     private void updatePeopleInLiftLine(String liftID) {
         System.out.println("how many people are in line?: ");
         int peopleInLine = input.nextInt();
@@ -188,15 +205,18 @@ public class ResortApp {
         System.out.println("updated lift " + liftID + " to have " + peopleInLine + " people in line.");
     }
 
+    // EFFECTS: returns true if string passed through is actually a valid integer
     private boolean isNumeric(String value) {
         try {
-            double d = Double.parseDouble(value);
+            int i = Integer.parseInt(value);
         } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
     }
 
+    // REQUIRES: an integer
+    // EFFECTS: returns true if liftID given is a valid lift
     private boolean liftIDValid(String liftID) {
         return (0 < Integer.parseInt(liftID)) && (Integer.parseInt(liftID) <= resort.getNumOfLifts());
     }

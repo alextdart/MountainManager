@@ -8,11 +8,11 @@ public class Lift {
     private final int seatsPerChair;
     private int numPeopleInLine = 0;
 
-    // EFFECTS: constructs new lift with Name
+    // EFFECTS: constructs new lift with Name, seats per chair
     public Lift(String name, int seatsPerChair, int numLiftsCurrently) {
         this.name = name;
         this.seatsPerChair = seatsPerChair;
-        this.liftID = numLiftsCurrently + 1;
+        this.liftID = numLiftsCurrently + 1; // liftID is the next number after how many lifts exist already
     }
 
     public int getID() {
@@ -45,6 +45,8 @@ public class Lift {
         this.open = true;
     }
 
+    // MODIFIES: this
+    // EFFECTS: closes the lift
     public void closeLift() {
         this.open = false;
     }

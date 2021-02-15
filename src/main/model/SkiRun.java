@@ -10,7 +10,7 @@ public class SkiRun {
     // EFFECTS: constructs new run with Name
     public SkiRun(String name, int numRunsCurrently) {
         this.name = name;
-        this.runID = numRunsCurrently + 1;
+        this.runID = numRunsCurrently + 1; // this run gets the next available runID, assuming all prev. are taken
     }
 
     public String getStatus() {
@@ -32,8 +32,9 @@ public class SkiRun {
         this.status = "closed";
     }
 
+    // REQUIRES: a new status for the run
     // MODIFIES: this
-    // EFFECTS: opens the run
+    // EFFECTS: opens the run with new status
     public void open(String newStatus) {
         this.open = true;
         this.status = newStatus;
