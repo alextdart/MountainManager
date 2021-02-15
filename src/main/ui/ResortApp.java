@@ -1,7 +1,10 @@
 package ui;
 
+import model.Lift;
 import model.SkiResort;
+import model.SkiRun;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // runs the entire Resort Application with ui
@@ -79,12 +82,38 @@ public class ResortApp {
 
     // EFFECTS: displays all lifts and their related info to the user, or a message if there aren't any
     private void checkLifts() {
-        resort.viewAllLifts();
+        ArrayList<Lift> allLifts;
+        if (resort.getNumOfLifts() == 0) {
+            System.out.println("\nthere are no lifts yet!");
+        } else {
+            allLifts = resort.viewAllLifts();
+            System.out.println("\n");
+            for (Lift lift : allLifts) {
+                String currentStatus;
+                if (lift.getOpen()) {
+                    currentStatus = "open";
+                } else {
+                    currentStatus = "closed";
+                }
+                System.out.println("Lift ID: " + lift.getID() + " | Name: " + lift.getName() + " | Status: "
+                        + currentStatus + " | Wait estimate: " + resort.getLiftLineEstimate(lift.getID()));
+            }
+        }
     }
 
     // EFFECTS: displays all runs and their related info to the user, or a message if there aren't any
     private void checkRuns() {
-        resort.viewAllRuns();
+        ArrayList<SkiRun> allRuns;
+        if (resort.getNumOfRuns() == 0) {
+            System.out.println("\nthere are no runs yet!");
+        } else {
+            allRuns = resort.viewAllRuns();
+            System.out.println("\n");
+            for (SkiRun run : allRuns) {
+                System.out.println("Run ID: " + run.getID() + " | Name: "
+                        + run.getName() + " | Status: " + run.getStatus());
+            }
+        }
     }
 
     // MODIFIES: SkiResort

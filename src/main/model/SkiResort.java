@@ -30,33 +30,13 @@ public class SkiResort {
     }
 
     // EFFECTS: prints all ski runs and their info
-    public void viewAllRuns() {
-        if (this.runs.size() == 0) {
-            System.out.println("\nthere are no runs yet!");
-        }
-        System.out.println("\n");
-        for (SkiRun run : this.runs) {
-            System.out.println("Run ID: " + run.getID() + " | Name: "
-                    + run.getName() + " | Status: " + run.getStatus());
-        }
+    public ArrayList<SkiRun> viewAllRuns() {
+        return this.runs;
     }
 
-    // EFFECTS: prints all lifts and their info
-    public void viewAllLifts() {
-        if (this.lifts.size() == 0) {
-            System.out.println("\nthere are no lifts yet!");
-        }
-        System.out.println("\n");
-        for (Lift lift : this.lifts) {
-            String currentStatus;
-            if (lift.getOpen()) {
-                currentStatus = "open";
-            } else {
-                currentStatus = "closed";
-            }
-            System.out.println("Lift ID: " + lift.getID() + " | Name: " + lift.getName() + " | Status: "
-                    + currentStatus + " | Wait estimate: " + getLiftLineEstimate(lift.getID()));
-        }
+    // EFFECTS: returns list of all lifts and their info
+    public ArrayList<Lift> viewAllLifts() {
+        return this.lifts;
     }
 
     // REQUIRES: the liftID of a valid lift
