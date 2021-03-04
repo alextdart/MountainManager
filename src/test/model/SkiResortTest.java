@@ -58,16 +58,28 @@ class SkiResortTest {
     }
 
     @Test
-    void testOpenAndCloseRuns() {
+    void testOpenAndCloseRunsThatExist() {
         assertEquals(testResort.openRun(1, "powder"), 1);
         assertEquals(testResort.openRun(2, "groomed"), 1);
         assertEquals(testResort.closeRun(2), 1);
     }
 
     @Test
-    void testOpenAndCloseLifts() {
+    void testOpenAndCloseLiftsThatExist() {
         assertEquals(testResort.openLift(1), 1);
         assertEquals(testResort.openLift(2), 1);
         assertEquals(testResort.closeLift(2), 1);
+    }
+
+    @Test
+    void testOpenAndCloseRunsThatDontExist() {
+        assertEquals(testResort.openRun(3, "powder"), 0);
+        assertEquals(testResort.closeRun(3), 0);
+    }
+
+    @Test
+    void testOpenAndCloseLiftsThatDontExist() {
+        assertEquals(testResort.openLift(3), 0);
+        assertEquals(testResort.closeLift(3), 0);
     }
 }
