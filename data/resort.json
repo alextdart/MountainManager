@@ -1,0 +1,58 @@
+{
+    "name": "Dart Mountain",
+    "lifts": [
+        {
+            "name": "crystal",
+            "lineup": 50,
+            "id": 1,
+            "seats": 6,
+            "open": true
+        },
+        {
+            "name": "garbanzo",
+            "lineup": 120,
+            "id": 2,
+            "seats": 4,
+            "open": true
+        },
+        {
+            "name": "fitzsimmons",
+            "lineup": 100,
+            "id": 3,
+            "seats": 8,
+            "open": true
+        }
+    ],
+    "runs": [
+        {
+            "name": "moonbooter",
+            "id": 1,
+            "open": true,
+            "status": "flying high"
+        },
+        {
+            "name": "downhill",
+            "id": 2,
+            "open": true,
+            "status": "groomed"
+        },
+        {
+            "name": "toasteroven",
+            "id": 3,
+            "open": true,
+            "status": "powder"
+        },
+        {
+            "name": "rotisserie",
+            "id": 4,
+            "open": false,
+            "status": "closed"
+        },
+        {
+            "name": "knife",
+            "id": 5,
+            "open": true,
+            "status": "groomed"
+        }
+    ]
+}

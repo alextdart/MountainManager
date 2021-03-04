@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // this class represents a ski run, it's condition, it's status (open or closed) and operations to change those
-public class SkiRun {
+public class SkiRun implements Writable {
 
     private boolean open = false;   // false = closed, true = open
     private String status = "closed";
@@ -12,6 +15,14 @@ public class SkiRun {
     public SkiRun(String name, int numRunsCurrently) {
         this.name = name;
         this.runID = numRunsCurrently + 1; // this run gets the next available runID, assuming all prev. are taken
+    }
+
+    // EFFECTS: constructs new run given parameters
+    public SkiRun(String name, String status, int id, boolean open) {
+        this.name = name;
+        this.status = status;
+        this.runID = id;
+        this.open = open;
     }
 
     public String getStatus() {
@@ -39,5 +50,16 @@ public class SkiRun {
     public void open(String newStatus) {
         this.open = true;
         this.status = newStatus;
+    }
+
+    @Override
+    // borrowed structure from JsonDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("status", status);
+        json.put("id", runID);
+        json.put("open", open);
+        return json;
     }
 }

@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // this class represents a chair lift, and represents it's name, number of seats per chair, and other related info
-public class Lift {
+public class Lift implements Writable {
 
     private boolean open = false;   // false = closed, true = open
     private final int liftID;
@@ -14,6 +17,15 @@ public class Lift {
         this.name = name;
         this.seatsPerChair = seatsPerChair;
         this.liftID = numLiftsCurrently + 1; // liftID is the next number after how many lifts exist already
+    }
+
+    // EFFECTS: constructs lift with given parameters
+    public Lift(String name, boolean open, int id, int seats, int lineup) {
+        this.name = name;
+        this.open = open;
+        this.liftID = id;
+        this.seatsPerChair = seats;
+        this.numPeopleInLine = lineup;
     }
 
     public int getID() {
@@ -50,5 +62,17 @@ public class Lift {
     // EFFECTS: closes the lift
     public void closeLift() {
         this.open = false;
+    }
+
+    @Override
+    // borrowed structure from JsonDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("open", open);
+        json.put("id", liftID);
+        json.put("seats", seatsPerChair);
+        json.put("lineup", numPeopleInLine);
+        return json;
     }
 }

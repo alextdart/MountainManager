@@ -1,13 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // this class represents a full ski resort with multiple runs and lifts
-public class SkiResort {
+public class SkiResort implements Writable {
 
     private ArrayList<SkiRun> runs = new ArrayList<SkiRun>();
     private ArrayList<Lift> lifts = new ArrayList<Lift>();
-    private boolean open = false;   // false = closed, true = open
     private final String name;
 
     // EFFECTS: constructs resort with Name and no runs or lifts
@@ -79,6 +82,20 @@ public class SkiResort {
         lifts.add(new Lift(name, numOfSeats, getNumOfLifts()));
     }
 
+    // REQUIRES: a SkiRun
+    // MODIFIES: SkiResort
+    // EFFECTS: adds given SkiRun to SkiResort
+    public void importRun(SkiRun run) {
+        runs.add(run);
+    }
+
+    // REQUIRES: a Lift
+    // MODIFIES: SkiResort
+    // EFFECTS: adds given Lift to SkiResort
+    public void importLift(Lift lift) {
+        lifts.add(lift);
+    }
+
     // REQUIRES: a valid runID, a new status for said run as a string
     // MODIFIES: the given SkiRun
     // EFFECTS: opens the given SkiRun, with a new status
@@ -129,5 +146,37 @@ public class SkiResort {
             }
         }
         return 0;
+    }
+
+    @Override
+    // borrowed structure from JsonDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("runs", runsToJson());
+        json.put("lifts", liftsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns runs in this SkiResort as a JSON array
+    private JSONArray runsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (SkiRun r : runs) {
+            jsonArray.put(r.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns runs in this SkiResort as a JSON array
+    private JSONArray liftsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Lift l : lifts) {
+            jsonArray.put(l.toJson());
+        }
+
+        return jsonArray;
     }
 }

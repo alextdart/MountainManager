@@ -27,4 +27,3 @@ User (from a resort staff perspective) stories:
  - As a user, I want to be able to save the state of my resort to a file
  - As a user, I want to be able to load my resort information from file 
  - As a user, when I select the quit option from the application menu, I want to be reminded to save my resort to a file and have the option to do so or not.
- - As a user, when I start the application, I want to be given the option to load my resort from a file.

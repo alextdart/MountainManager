@@ -3,13 +3,20 @@ package ui;
 import model.Lift;
 import model.SkiResort;
 import model.SkiRun;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // runs the entire Resort Application with ui
 public class ResortApp {
 
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private static final String JSON_STORE = "./data/resort.json"; // borrowed from JsonDemo
     private SkiResort resort;
     private Scanner input;
 
@@ -32,6 +39,7 @@ public class ResortApp {
             command = command.toLowerCase();
 
             if (command.equals("quit")) {
+                promptSave();
                 run = false;
             } else {
                 processCommand(command);
@@ -50,6 +58,10 @@ public class ResortApp {
             checkRuns();
         } else if (command.equals("add")) {
             addNew();
+        } else if (command.equals("save")) {
+            saveSkiResort();
+        } else if (command.equals("load")) {
+            loadSkiResort();
         } else if (command.equals("change")) {
             String modificationTarget = modifyWho();
             if (modificationTarget.equals("run")) {
@@ -68,6 +80,8 @@ public class ResortApp {
         resort = new SkiResort("Dart Mountain");
         System.out.println("Welcome to the " + resort.getName() + " management system!");
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // EFFECTS: displays menu of options to user
@@ -76,8 +90,22 @@ public class ResortApp {
         System.out.println("\tlifts -> view lifts");
         System.out.println("\truns -> view runs");
         System.out.println("\tadd -> add new lift or run");
+        System.out.println("\tsave -> save resort to a file");
+        System.out.println("\tload -> load resort from a file");
         System.out.println("\tchange -> change status of a lift or a run");
         System.out.println("\tquit -> quit the program");
+    }
+
+    // EFFECTS: prompts user to save mountain before quitting
+    private void promptSave() {
+        String command = "";
+        System.out.println("\nWould you like to save your mountain before exiting? (y/n)");
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("y")) {
+            saveSkiResort();
+        }
     }
 
     // EFFECTS: displays all lifts and their related info to the user, or a message if there aren't any
@@ -248,6 +276,29 @@ public class ResortApp {
     // EFFECTS: returns true if liftID given is a valid lift
     private boolean liftIDValid(String liftID) {
         return (0 < Integer.parseInt(liftID)) && (Integer.parseInt(liftID) <= resort.getNumOfLifts());
+    }
+
+    // EFFECTS: saves the SkiResort to file
+    private void saveSkiResort() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(resort);
+            jsonWriter.close();
+            System.out.println("Saved " + resort.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads SkiResort from file
+    private void loadSkiResort() {
+        try {
+            resort = jsonReader.read();
+            System.out.println("Loaded " + resort.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }
 
