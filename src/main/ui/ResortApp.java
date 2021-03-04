@@ -167,7 +167,7 @@ public class ResortApp {
             String newName = input.next();
             String numSeats = getValidNumSeats();
             resort.addLift(newName, Integer.parseInt(numSeats));
-            System.out.println("new lift " + newName + " created with " + numSeats + " seats per chair.");
+            System.out.println("new lift " + newName + " created with " + numSeats + " seat(s) per chair.");
         }
     }
 
