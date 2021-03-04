@@ -1,0 +1,33 @@
+{
+  "runs": [
+    {
+      "name": "runone",
+      "status": "open",
+      "id": 1,
+      "open": true
+    },
+    {
+      "name": "runtwo",
+      "status": "groomed",
+      "id": 2,
+      "open": true
+    }
+  ],
+  "lifts": [
+    {
+      "name": "liftone",
+      "open": true,
+      "id": 1,
+      "seats": 1,
+      "lineup": 11
+    },
+    {
+      "name": "lifttwo",
+      "open": true,
+      "id": 2,
+      "seats": 2,
+      "lineup": 22
+    }
+  ],
+  "name": "Dart Mountain"
+}

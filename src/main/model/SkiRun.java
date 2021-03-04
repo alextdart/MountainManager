@@ -37,6 +37,10 @@ public class SkiRun implements Writable {
         return this.name;
     }
 
+    public boolean getOpen() {
+        return this.open;
+    }
+
     // MODIFIES: this
     // EFFECTS: closes the run
     public void close() {

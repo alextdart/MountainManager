@@ -1,0 +1,16 @@
+{
+    "name": "Dart Mountain",
+    "lifts": [{
+        "name": "testlift",
+        "lineup": 0,
+        "id": 1,
+        "seats": 3,
+        "open": false
+    }],
+    "runs": [{
+        "name": "testrun",
+        "id": 1,
+        "open": false,
+        "status": "closed"
+    }]
+}
