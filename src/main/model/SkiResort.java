@@ -18,22 +18,19 @@ public class SkiResort implements Writable {
         this.name = name;
     }
 
-    // EFFECTS: returns name of resort
     public String getName() {
         return name;
     }
 
-    // EFFECTS: returns number of runs
     public int getNumOfRuns() {
         return runs.size();
     }
 
-    // EFFECTS: returns number of lifts
     public int getNumOfLifts() {
         return lifts.size();
     }
 
-    // EFFECTS: prints all ski runs and their info
+    // EFFECTS: returns list of all ski runs and their info
     public ArrayList<SkiRun> viewAllRuns() {
         return this.runs;
     }
@@ -47,11 +44,11 @@ public class SkiResort implements Writable {
     // EFFECTS: returns an estimate of how long it will take to get through a lift line
     public String getLiftLineEstimate(int targetID) {
         int estimate = 0;
-        int peopleInLine = 0;
+        int peopleInLine;
         for (Lift lift : this.lifts) {
             if (lift.getID() == targetID) {
                 peopleInLine = lift.getNumPeopleInLine();
-                estimate = ((peopleInLine / lift.getSeatsPerChair()) * 30);
+                estimate = ((peopleInLine / lift.getSeatsPerChair()) * 30); // 30 seconds per chair
             }
         }
         return ((estimate / 60) + " minutes");
@@ -70,22 +67,22 @@ public class SkiResort implements Writable {
 
     // REQUIRES: a name for the run as a string
     // MODIFIES: SkiResort, and a new SkiRun
-    // EFFECTS: creates a new SkiRun with given name
+    // EFFECTS: creates a new SkiRun with given name, adds to list of runs
     public void addRun(String name) {
         runs.add(new SkiRun(name, getNumOfRuns()));
     }
 
     // REQUIRES: a name for the lift as a string, number of seats per chair
     // MODIFIES: SkiResort, and a new Lift
-    // EFFECTS: creates a new Lift with given name, num of seats
+    // EFFECTS: creates a new Lift with given name, num of seats, adds to list of lifts
     public void addLift(String name, int numOfSeats) {
         lifts.add(new Lift(name, numOfSeats, getNumOfLifts()));
     }
 
     // REQUIRES: a SkiRun
     // MODIFIES: SkiResort
-    // EFFECTS: adds given SkiRun to SkiResort
-    public void importRun(SkiRun run) {
+    // EFFECTS: adds an existing given SkiRun to SkiResort
+    public void importRun(SkiRun run)  {
         runs.add(run);
     }
 
@@ -103,7 +100,7 @@ public class SkiResort implements Writable {
         for (SkiRun currentRun : this.runs) {
             if (currentRun.getID() == targetRun) {
                 currentRun.open(newStatus);
-                return 1;
+                return 1; // 1 marks success
             }
         }
         return 0;
@@ -116,7 +113,7 @@ public class SkiResort implements Writable {
         for (SkiRun currentRun : this.runs) {
             if (currentRun.getID() == targetRun) {
                 currentRun.close();
-                return 1;
+                return 1; // 1 marks success
             }
         }
         return 0;
@@ -129,7 +126,7 @@ public class SkiResort implements Writable {
         for (Lift currentLift : this.lifts) {
             if (currentLift.getID() == targetLift) {
                 currentLift.openLift();
-                return 1;
+                return 1;  // 1 marks success
             }
         }
         return 0;
@@ -142,7 +139,7 @@ public class SkiResort implements Writable {
         for (Lift currentLift : this.lifts) {
             if (currentLift.getID() == targetLift) {
                 currentLift.closeLift();
-                return 1;
+                return 1;  // 1 marks success
             }
         }
         return 0;
@@ -150,6 +147,7 @@ public class SkiResort implements Writable {
 
     @Override
     // borrowed structure from JsonDemo
+    // exports skiresort as a json object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
@@ -161,22 +159,18 @@ public class SkiResort implements Writable {
     // EFFECTS: returns runs in this SkiResort as a JSON array
     private JSONArray runsToJson() {
         JSONArray jsonArray = new JSONArray();
-
         for (SkiRun r : runs) {
             jsonArray.put(r.toJson());
         }
-
         return jsonArray;
     }
 
-    // EFFECTS: returns runs in this SkiResort as a JSON array
+    // EFFECTS: returns lifts in this SkiResort as a JSON array
     private JSONArray liftsToJson() {
         JSONArray jsonArray = new JSONArray();
-
         for (Lift l : lifts) {
             jsonArray.put(l.toJson());
         }
-
         return jsonArray;
     }
 }

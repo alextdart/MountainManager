@@ -66,6 +66,7 @@ public class Lift implements Writable {
 
     @Override
     // borrowed structure from JsonDemo
+    // EFFECTS: exports lift as a json object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);

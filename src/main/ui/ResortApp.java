@@ -29,7 +29,7 @@ public class ResortApp {
     // EFFECTS: processes user input
     private void runResort() {
         boolean run = true;
-        String command = "";
+        String command;
 
         init();
 
@@ -80,6 +80,7 @@ public class ResortApp {
         resort = new SkiResort("Dart Mountain");
         System.out.println("Welcome to the " + resort.getName() + " management system!");
         input = new Scanner(System.in);
+        input.useDelimiter("\n"); // changes input delimiter to a newline instead of whitespace
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }
@@ -98,7 +99,7 @@ public class ResortApp {
 
     // EFFECTS: prompts user to save mountain before quitting
     private void promptSave() {
-        String command = "";
+        String command;
         System.out.println("\nWould you like to save your mountain before exiting? (y/n)");
         command = input.next();
         command = command.toLowerCase();
@@ -164,11 +165,20 @@ public class ResortApp {
         } else {
             System.out.println("enter the new lifts's name: ");
             String newName = input.next();
-            System.out.println("enter the number of seats per chair: ");
-            String numSeats = input.next();
+            String numSeats = getValidNumSeats();
             resort.addLift(newName, Integer.parseInt(numSeats));
             System.out.println("new lift " + newName + " created with " + numSeats + " seats per chair.");
         }
+    }
+
+    // EFFECTS: gets a valid number of seats per chair
+    private String getValidNumSeats() {
+        String numSeats = ""; // forced entry to loop
+        while (!isNumeric(numSeats) || Integer.parseInt(numSeats) < 1) {
+            System.out.println("please enter the number of seats per chair: ");
+            numSeats = input.next();
+        }
+        return numSeats;
     }
 
     // used to determine user's choice of what to modify

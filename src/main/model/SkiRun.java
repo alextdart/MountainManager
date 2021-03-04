@@ -11,7 +11,7 @@ public class SkiRun implements Writable {
     private final int runID;
     private final String name;
 
-    // EFFECTS: constructs new run with Name
+    // EFFECTS: constructs new run with Name and default parameters
     public SkiRun(String name, int numRunsCurrently) {
         this.name = name;
         this.runID = numRunsCurrently + 1; // this run gets the next available runID, assuming all prev. are taken
@@ -58,6 +58,7 @@ public class SkiRun implements Writable {
 
     @Override
     // borrowed structure from JsonDemo
+    // exports run as json object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
