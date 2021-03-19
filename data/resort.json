@@ -17,9 +17,16 @@
         },
         {
             "name": "fitzsimmons express",
-            "lineup": 100,
+            "lineup": 10,
             "id": 3,
             "seats": 8,
+            "open": false
+        },
+        {
+            "name": "denis express",
+            "lineup": 56,
+            "id": 4,
+            "seats": 6,
             "open": true
         }
     ],
@@ -53,6 +60,12 @@
             "id": 5,
             "open": true,
             "status": "moguls"
+        },
+        {
+            "name": "peace tea park",
+            "id": 6,
+            "open": true,
+            "status": "nice and icey"
         }
     ]
 }

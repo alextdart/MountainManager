@@ -1,4 +1,4 @@
-package ui;
+package legacy;
 
 import model.Lift;
 import model.SkiResort;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // runs the entire Resort Application with ui
-public class ResortApp {
+public class ConsoleApp {
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -21,7 +21,7 @@ public class ResortApp {
     private Scanner input;
 
     // EFFECTS: runs the resort application
-    public ResortApp() {
+    public ConsoleApp() {
         runResort();
     }
 

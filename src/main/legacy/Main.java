@@ -1,10 +1,8 @@
-package ui;
-
-import model.SkiResort;
+package legacy;
 
 // Starts a new SkiResort app instance
 public class Main {
     public static void main(String[] args) {
-        new ResortApp();
+        new ConsoleApp();
     }
 }
