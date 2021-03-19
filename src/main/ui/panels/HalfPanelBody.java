@@ -7,8 +7,7 @@ import java.awt.*;
 public class HalfPanelBody extends JPanel {
 
     public HalfPanelBody() {
-        setLayout(new FlowLayout(3));
-
+        add(new JScrollPane());
         setBorder(new LineBorder(Color.RED));
     }
 }

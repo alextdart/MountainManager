@@ -7,10 +7,10 @@ import java.awt.*;
 public class RunsPanel extends JPanel {
 
     public RunsPanel() {
-        setLayout(new GridLayout(3, 1));
-        add(new HalfPanelHeader());
-        add(new HalfPanelBody());
-        add(new HalfPanelFooter());
+        setLayout(new BorderLayout());
+        add(new HalfPanelHeader(1), BorderLayout.NORTH);
+        add(new HalfPanelBody(), BorderLayout.CENTER);
+        add(new HalfPanelFooter(), BorderLayout.SOUTH);
         setBorder(new LineBorder(Color.BLUE));
     }
 }
