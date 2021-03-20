@@ -40,6 +40,28 @@ public class SkiResort implements Writable {
         return this.lifts;
     }
 
+    // EFFECTS: returns num of open lifts
+    public int getNumOpenLifts() {
+        int count = 0;
+        for (Lift lift : this.lifts) {
+            if (lift.getOpen()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // EFFECTS: returns num of open runs
+    public int getNumOpenRuns() {
+        int count = 0;
+        for (SkiRun run : this.runs) {
+            if (run.getOpen()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     // REQUIRES: the liftID of a valid lift
     // EFFECTS: returns an estimate of how long it will take to get through a lift line
     public String getLiftLineEstimate(int targetID) {
@@ -51,7 +73,7 @@ public class SkiResort implements Writable {
                 estimate = ((peopleInLine / lift.getSeatsPerChair()) * 30); // 30 seconds per chair
             }
         }
-        return ((estimate / 60) + " minutes");
+        return ((estimate / 60) + " mins");
     }
 
     // REQUIRES: the liftID of a valid lift, and a number of people in line
