@@ -27,6 +27,10 @@ public class MountainManager extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/resort.json"; // borrowed from JsonDemo
     private JButton saveButton;
     private JButton loadButton;
+    private JButton addLiftButton;
+    private JButton addRunButton;
+    private JButton delLiftButton;
+    private JButton delRunButton;
 
 
     // TODO https://stackoverflow.com/questions/18202415/jpanels-in-jpanel
@@ -96,6 +100,31 @@ public class MountainManager extends JFrame implements ActionListener {
         frame.validate();
     }
 
+    private void addLift() {
+        String name = JOptionPane.showInputDialog("Name of new lift: ");
+        int numSeats = Integer.parseInt(JOptionPane.showInputDialog("Number of seats per chair: "));
+        resort.addLift(name, numSeats);
+        refresh();
+    }
+
+    private void addRun() {
+        String name = JOptionPane.showInputDialog("Name of new run: ");
+        resort.addRun(name);
+        refresh();
+    }
+
+    private void delLift() {
+        int id = Integer.parseInt(JOptionPane.showInputDialog("ID of lift to remove: "));
+        resort.removeLift(id);
+        refresh();
+    }
+
+    private void delRun() {
+        int id = Integer.parseInt(JOptionPane.showInputDialog("ID of run to remove: "));
+        resort.removeRun(id);
+        refresh();
+    }
+
     // ---------------------------------------------
     // PANELS ARE DOWN HERE SO THEY CAN CALL METHODS
     // ---------------------------------------------
@@ -123,7 +152,7 @@ public class MountainManager extends JFrame implements ActionListener {
         panel.setLayout(new BorderLayout());
         panel.add(halfPanelHeader(0), BorderLayout.NORTH);
         panel.add(halfPanelBody(0), BorderLayout.CENTER);
-        panel.add(halfPanelFooter(), BorderLayout.SOUTH);
+        panel.add(halfPanelFooter(0), BorderLayout.SOUTH);
         panel.setBorder(new LineBorder(Color.BLUE));
         return panel;
     }
@@ -133,16 +162,16 @@ public class MountainManager extends JFrame implements ActionListener {
         panel.setLayout(new BorderLayout());
         panel.add(halfPanelHeader(1), BorderLayout.NORTH);
         panel.add(halfPanelBody(1), BorderLayout.CENTER);
-        panel.add(halfPanelFooter(), BorderLayout.SOUTH);
+        panel.add(halfPanelFooter(1), BorderLayout.SOUTH);
         panel.setBorder(new LineBorder(Color.BLUE));
         return panel;
     }
 
-    private JPanel halfPanelHeader(int liftsOrRuns) {
+    private JPanel halfPanelHeader(int liftOrRun) {
         JPanel panel = new JPanel();
         JLabel text = new JLabel();
         panel.setLayout(new FlowLayout(FlowLayout.LEADING));
-        if (liftsOrRuns == 0) {
+        if (liftOrRun == 0) {
             text.setText(generateLiftsText(resort.getNumOpenLifts(), resort.getNumOfLifts()));
         } else {
             text.setText(generateRunsText(resort.getNumOpenRuns(), resort.getNumOfRuns()));
@@ -151,7 +180,6 @@ public class MountainManager extends JFrame implements ActionListener {
         return panel;
     }
 
-    // TODO
     private JPanel halfPanelBody(int liftOrRun) {
         JPanel panel = new JPanel();
         if (liftOrRun == 0) {
@@ -163,13 +191,18 @@ public class MountainManager extends JFrame implements ActionListener {
         return panel;
     }
 
-    private JPanel halfPanelFooter() {
+    private JPanel halfPanelFooter(int liftOrRun) {
         JPanel panel = new JPanel();
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(1,1));
         buttons.setSize(new Dimension(600,100));
-        buttons.add(new JButton("add"));
-        buttons.add(new JButton("remove"));
+        if (liftOrRun == 0) {
+            buttons.add(addDelLiftButton(false));
+            buttons.add(addDelLiftButton(true));
+        } else {
+            buttons.add(addDelRunButton(false));
+            buttons.add(addDelRunButton(true));
+        }
         panel.add(buttons);
         return panel;
     }
@@ -177,6 +210,46 @@ public class MountainManager extends JFrame implements ActionListener {
     // ---------------------------------------------
     // PANELS HELPERS
     // ---------------------------------------------
+
+    private JButton addDelLiftButton(boolean func) {
+        if (!func) {
+            addLiftButton = new JButton("add lift");
+            addLiftButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    addLift();
+                }
+            });
+            return addLiftButton;
+        } else {
+            delLiftButton = new JButton("remove lift");
+            delLiftButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    delLift();
+                }
+            });
+            return delLiftButton;
+        }
+    }
+
+    private JButton addDelRunButton(boolean func) {
+        if (!func) {
+            addRunButton = new JButton("add run");
+            addRunButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    addRun();
+                }
+            });
+            return addRunButton;
+        } else {
+            delRunButton = new JButton("remove run");
+            delRunButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    delRun();
+                }
+            });
+            return delRunButton;
+        }
+    }
 
     private JLabel leftText(String text) {
         JLabel l = new JLabel();
@@ -216,8 +289,9 @@ public class MountainManager extends JFrame implements ActionListener {
 
     private JPanel generateLiftsList() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(resort.getNumOfLifts(), 4, 20, 2));
+        panel.setLayout(new GridLayout(resort.getNumOfLifts(), 5, 20, 2));
         for (Lift lift : resort.viewAllLifts()) {
+            panel.add(new JLabel("" + lift.getID()));
             panel.add(new JLabel(lift.getName()));
             panel.add(new JLabel(boolToOpenOrClose(lift.getOpen())));
             panel.add(new JLabel(resort.getLiftLineEstimate(lift.getID())));
@@ -228,8 +302,9 @@ public class MountainManager extends JFrame implements ActionListener {
 
     private JPanel generateRunsList() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(resort.getNumOfRuns(), 4, 20, 2));
+        panel.setLayout(new GridLayout(resort.getNumOfRuns(), 5, 20, 2));
         for (SkiRun run : resort.viewAllRuns()) {
+            panel.add(new JLabel("" + run.getID()));
             panel.add(new JLabel(run.getName()));
             panel.add(new JLabel(boolToOpenOrClose(run.getOpen())));
             panel.add(new JLabel(run.getStatus()));
@@ -245,7 +320,4 @@ public class MountainManager extends JFrame implements ActionListener {
             return "closed";
         } 
     }
-
-    // BUTTON ANONYMOUS ACTION LISTENERS
-
 }

@@ -8,7 +8,7 @@ public class SkiRun implements Writable {
 
     private boolean open = false;   // false = closed, true = open
     private String status = "closed";
-    private final int runID;
+    private int runID;
     private final String name;
 
     // EFFECTS: constructs new run with Name and default parameters
@@ -31,6 +31,10 @@ public class SkiRun implements Writable {
 
     public int getID() {
         return this.runID;
+    }
+
+    public void setID(int id)  {
+        this.runID = id;
     }
 
     public String getName() {

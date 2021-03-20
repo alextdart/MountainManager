@@ -7,7 +7,7 @@ import persistence.Writable;
 public class Lift implements Writable {
 
     private boolean open = false;   // false = closed, true = open
-    private final int liftID;
+    private int liftID;
     private final String name;
     private final int seatsPerChair;
     private int numPeopleInLine = 0;
@@ -30,6 +30,10 @@ public class Lift implements Writable {
 
     public int getID() {
         return this.liftID;
+    }
+
+    public void setID(int id)  {
+        this.liftID = id;
     }
 
     public boolean getOpen() {

@@ -101,6 +101,38 @@ public class SkiResort implements Writable {
         lifts.add(new Lift(name, numOfSeats, getNumOfLifts()));
     }
 
+    // REQUIRES: a valid run's id to remove
+    // MODIFIES: SkiResort
+    // EFFECTS: deletes a run from SkiResort's list
+    public void removeRun(int id) {
+        runs.removeIf(run -> run.getID() == id);
+        renumberRuns();
+    }
+
+    // REQUIRES: a valid lift's id to remove
+    // MODIFIES: SkiResort
+    // EFFECTS: deletes a lift from SkiResort's list
+    public void removeLift(int id) {
+        lifts.removeIf(lift -> lift.getID() == id);
+        renumberLifts();
+    }
+
+    private void renumberRuns() {
+        int newID = 1;
+        for (SkiRun run : runs) {
+            run.setID(newID);
+            newID++;
+        }
+    }
+
+    private void renumberLifts() {
+        int newID = 1;
+        for (Lift lift : lifts) {
+            lift.setID(newID);
+            newID++;
+        }
+    }
+
     // REQUIRES: a SkiRun
     // MODIFIES: SkiResort
     // EFFECTS: adds an existing given SkiRun to SkiResort
