@@ -15,7 +15,6 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-// TODO comment
 public class MountainManager extends JFrame implements ActionListener {
 
     private JFrame frame;
@@ -25,15 +24,7 @@ public class MountainManager extends JFrame implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/resort.json"; // borrowed from JsonDemo
-    private JButton saveButton;
-    private JButton loadButton;
-    private JButton addLiftButton;
-    private JButton addRunButton;
-    private JButton delLiftButton;
-    private JButton delRunButton;
 
-
-    // TODO https://stackoverflow.com/questions/18202415/jpanels-in-jpanel
     // Constructs main window
     // effects: sets up window in which Mountain Manager will be displayed
     public MountainManager() {
@@ -125,6 +116,32 @@ public class MountainManager extends JFrame implements ActionListener {
         refresh();
     }
 
+    private void modifyLifts() {
+        int target = Integer.parseInt(JOptionPane.showInputDialog("ID of lift to modify: "));
+        String func = JOptionPane.showInputDialog("Modifying: " + target + ". Enter 'update', 'open' or 'close': ");
+        if (func.equals("update")) {
+            int pplInLine = Integer.parseInt(JOptionPane.showInputDialog("How many people in line?: "));
+            resort.updateLiftLine(target, pplInLine);
+        } else if (func.equals("open")) {
+            resort.openLift(target);
+        } else {
+            resort.closeLift(target);
+        }
+        refresh();
+    }
+
+    private void modifyRuns() {
+        int target = Integer.parseInt(JOptionPane.showInputDialog("ID of run to modify: "));
+        String func = JOptionPane.showInputDialog("Modifying: " + target + ". Enter 'open' or 'close': ");
+        if (func.equals("open")) {
+            String newStatus = JOptionPane.showInputDialog("New condition: ");
+            resort.openRun(target, newStatus);
+        } else {
+            resort.closeRun(target);
+        }
+        refresh();
+    }
+
     // ---------------------------------------------
     // PANELS ARE DOWN HERE SO THEY CAN CALL METHODS
     // ---------------------------------------------
@@ -197,9 +214,11 @@ public class MountainManager extends JFrame implements ActionListener {
         buttons.setLayout(new GridLayout(1,1));
         buttons.setSize(new Dimension(600,100));
         if (liftOrRun == 0) {
+            buttons.add(modifyLiftButton());
             buttons.add(addDelLiftButton(false));
             buttons.add(addDelLiftButton(true));
         } else {
+            buttons.add(modifyRunButton());
             buttons.add(addDelRunButton(false));
             buttons.add(addDelRunButton(true));
         }
@@ -211,9 +230,29 @@ public class MountainManager extends JFrame implements ActionListener {
     // PANELS HELPERS
     // ---------------------------------------------
 
+    private JButton modifyLiftButton() {
+        JButton modifyLiftButton = new JButton("modify lifts");
+        modifyLiftButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                modifyLifts();
+            }
+        });
+        return modifyLiftButton;
+    }
+
+    private JButton modifyRunButton() {
+        JButton modifyRunButton = new JButton("modify runs");
+        modifyRunButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                modifyRuns();
+            }
+        });
+        return modifyRunButton;
+    }
+
     private JButton addDelLiftButton(boolean func) {
         if (!func) {
-            addLiftButton = new JButton("add lift");
+            JButton addLiftButton = new JButton("add lift");
             addLiftButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     addLift();
@@ -221,7 +260,7 @@ public class MountainManager extends JFrame implements ActionListener {
             });
             return addLiftButton;
         } else {
-            delLiftButton = new JButton("remove lift");
+            JButton delLiftButton = new JButton("remove lift");
             delLiftButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     delLift();
@@ -233,7 +272,7 @@ public class MountainManager extends JFrame implements ActionListener {
 
     private JButton addDelRunButton(boolean func) {
         if (!func) {
-            addRunButton = new JButton("add run");
+            JButton addRunButton = new JButton("add run");
             addRunButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     addRun();
@@ -241,7 +280,7 @@ public class MountainManager extends JFrame implements ActionListener {
             });
             return addRunButton;
         } else {
-            delRunButton = new JButton("remove run");
+            JButton delRunButton = new JButton("remove run");
             delRunButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     delRun();
@@ -262,13 +301,13 @@ public class MountainManager extends JFrame implements ActionListener {
     private JPanel saveLoadButtons() {
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout(FlowLayout.TRAILING));
-        saveButton = new JButton("save");
+        JButton saveButton = new JButton("save");
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 saveResort();
             }
         });
-        loadButton = new JButton("load");
+        JButton loadButton = new JButton("load");
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 loadResort();
@@ -289,26 +328,32 @@ public class MountainManager extends JFrame implements ActionListener {
 
     private JPanel generateLiftsList() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(resort.getNumOfLifts(), 5, 20, 2));
+        panel.setLayout(new GridLayout(resort.getNumOfLifts() + 1, 4, 30, 8));
+        panel.add(new JLabel("ID"));
+        panel.add(new JLabel("NAME"));
+        panel.add(new JLabel("STATUS"));
+        panel.add(new JLabel("WAIT TIME"));
         for (Lift lift : resort.viewAllLifts()) {
             panel.add(new JLabel("" + lift.getID()));
             panel.add(new JLabel(lift.getName()));
             panel.add(new JLabel(boolToOpenOrClose(lift.getOpen())));
             panel.add(new JLabel(resort.getLiftLineEstimate(lift.getID())));
-            panel.add(new JButton("change"));
         }
         return panel;
     }
 
     private JPanel generateRunsList() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(resort.getNumOfRuns(), 5, 20, 2));
+        panel.setLayout(new GridLayout(resort.getNumOfRuns() + 1, 4, 30, 8));
+        panel.add(new JLabel("ID"));
+        panel.add(new JLabel("NAME"));
+        panel.add(new JLabel("STATUS"));
+        panel.add(new JLabel("CONDITION"));
         for (SkiRun run : resort.viewAllRuns()) {
             panel.add(new JLabel("" + run.getID()));
             panel.add(new JLabel(run.getName()));
             panel.add(new JLabel(boolToOpenOrClose(run.getOpen())));
             panel.add(new JLabel(run.getStatus()));
-            panel.add(new JButton("change"));
         }
         return panel;
     }

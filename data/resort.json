@@ -17,10 +17,10 @@
         },
         {
             "name": "fitzsimmons express",
-            "lineup": 10,
+            "lineup": 100,
             "id": 3,
             "seats": 8,
-            "open": false
+            "open": true
         },
         {
             "name": "denis express",
@@ -28,6 +28,13 @@
             "id": 4,
             "seats": 6,
             "open": true
+        },
+        {
+            "name": "mikey express",
+            "lineup": 0,
+            "id": 5,
+            "seats": 5,
+            "open": false
         }
     ],
     "runs": [
@@ -47,7 +54,7 @@
             "name": "toaster oven",
             "id": 3,
             "open": true,
-            "status": "powder"
+            "status": "toasty"
         },
         {
             "name": "rotisserie",
