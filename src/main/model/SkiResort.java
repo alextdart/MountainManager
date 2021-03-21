@@ -117,6 +117,8 @@ public class SkiResort implements Writable {
         renumberLifts();
     }
 
+    // MODIFIES: all runs in list of runs
+    // EFFECTS: renumbers all runs to be consecutive
     private void renumberRuns() {
         int newID = 1;
         for (SkiRun run : runs) {
@@ -125,6 +127,8 @@ public class SkiResort implements Writable {
         }
     }
 
+    // MODIFIES: all lifts in list of lifts
+    // EFFECTS: renumbers all lifts to be consecutive
     private void renumberLifts() {
         int newID = 1;
         for (Lift lift : lifts) {

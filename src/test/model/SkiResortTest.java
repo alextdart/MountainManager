@@ -37,10 +37,10 @@ class SkiResortTest {
     void testGetLiftLineEstimate() {
         testResort.updateLiftLine(1, 100);
         testResort.updateLiftLine(2, 100);
-        assertEquals(testResort.getLiftLineEstimate(1), "8 minutes");
-        assertEquals(testResort.getLiftLineEstimate(2), "16 minutes");
+        assertEquals(testResort.getLiftLineEstimate(1), "8 mins");
+        assertEquals(testResort.getLiftLineEstimate(2), "16 mins");
         testResort.updateLiftLine(2, 25);
-        assertEquals(testResort.getLiftLineEstimate(2), "4 minutes");
+        assertEquals(testResort.getLiftLineEstimate(2), "4 mins");
     }
 
     @Test

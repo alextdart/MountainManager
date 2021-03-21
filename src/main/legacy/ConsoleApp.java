@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// runs the entire Resort Application with ui
+// runs the entire Resort Application with ui via the console
 public class ConsoleApp {
 
     private JsonWriter jsonWriter;
