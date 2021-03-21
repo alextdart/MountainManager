@@ -82,4 +82,32 @@ class SkiResortTest {
         assertEquals(testResort.openLift(3), 0);
         assertEquals(testResort.closeLift(3), 0);
     }
+
+    @Test
+    void testGetNumOpenLifts() {
+        assertEquals(testResort.getNumOpenLifts(), 0);
+        assertEquals(testResort.openLift(1), 1);
+        assertEquals(testResort.getNumOpenLifts(), 1);
+    }
+
+    @Test
+    void testGetNumOpenRuns() {
+        assertEquals(testResort.getNumOpenRuns(), 0);
+        assertEquals(testResort.openRun(1, "Icey"), 1);
+        assertEquals(testResort.getNumOpenRuns(), 1);
+    }
+
+    @Test
+    void testRemoveLift() {
+        assertEquals(testResort.getNumOfLifts(), 2);
+        testResort.removeLift(1);
+        assertEquals(testResort.getNumOfLifts(), 1);
+    }
+
+    @Test
+    void testRemoveRun() {
+        assertEquals(testResort.getNumOfRuns(), 2);
+        testResort.removeRun(1);
+        assertEquals(testResort.getNumOfRuns(), 1);
+    }
 }
