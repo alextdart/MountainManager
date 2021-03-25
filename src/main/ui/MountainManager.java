@@ -24,6 +24,7 @@ public class MountainManager extends JFrame implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/resort.json"; // borrowed from JsonDemo
+    private static final String MTNS_URL = "./data/mountains.jpg";
 
     // Constructs main window
     // EFFECTS: initializes with blank resort, starts fields and graphics
@@ -304,7 +305,10 @@ public class MountainManager extends JFrame implements ActionListener {
     // EFFECTS: creates the label for the mountain title at the top of the header
     private JLabel leftText(String text) {
         JLabel l = new JLabel();
+        ImageIcon icon = new ImageIcon(MTNS_URL);
+        l.setIcon(icon);
         l.setText(text);
+        l.setHorizontalTextPosition(JLabel.CENTER);
         l.setFont(new Font("Courier", Font.BOLD,75));
         l.setPreferredSize(new Dimension(600,100));
         return l;
