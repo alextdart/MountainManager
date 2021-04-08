@@ -31,3 +31,7 @@ User (from a resort staff perspective) stories:
 ## Phase 4: Task 2
 
 Added exception throwing and checking to parsing number of seats per chair lift when creating a new lift in MountainManager
+
+## Phase 4: Task 3
+
+I believe I did a good job managing the classes and minimizing clutter and/or chaos. Of course with more time I would refactor plenty of things to make them more readable and have them function better, but I believe this was a good effort.
