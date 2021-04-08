@@ -27,3 +27,7 @@ User (from a resort staff perspective) stories:
  - As a user, I want to be able to save the state of my resort to a file
  - As a user, I want to be able to load my resort information from file 
  - As a user, when I select the quit option from the application menu, I want to be reminded to save my resort to a file and have the option to do so or not.
+
+## Phase 4: Task 2
+
+Added exception throwing and checking to parsing number of seats per chair when creating a new lift in MountainManager

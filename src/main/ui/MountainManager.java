@@ -108,9 +108,19 @@ public class MountainManager extends JFrame implements ActionListener {
     // EFFECTS: adds a new lift to the resort
     private void addLift() {
         String name = JOptionPane.showInputDialog("Name of new lift: ");
-        int numSeats = Integer.parseInt(JOptionPane.showInputDialog("Number of seats per chair: "));
-        resort.addLift(name, numSeats);
+        String numSeatsString = JOptionPane.showInputDialog("Number of seats per chair: ");
+        resort.addLift(name, tryParse(numSeatsString));
         refresh();
+    }
+
+    // EFFECTS: tries to parse int from string, catches NFE if not possible
+    public int tryParse(String text) {
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number of seats, not an integer.");
+            return -1;
+        }
     }
 
     // MODIFIES: resort
