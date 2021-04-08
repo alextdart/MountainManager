@@ -30,4 +30,4 @@ User (from a resort staff perspective) stories:
 
 ## Phase 4: Task 2
 
-Added exception throwing and checking to parsing number of seats per chair when creating a new lift in MountainManager
+Added exception throwing and checking to parsing number of seats per chair lift when creating a new lift in MountainManager
